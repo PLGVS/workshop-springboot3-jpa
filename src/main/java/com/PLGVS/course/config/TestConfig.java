@@ -1,8 +1,10 @@
 package com.PLGVS.course.config;
 
+import com.PLGVS.course.entities.Category;
 import com.PLGVS.course.entities.Order;
 import com.PLGVS.course.entities.User;
 import com.PLGVS.course.entities.enums.OrderStatus;
+import com.PLGVS.course.repositories.CategoryRepository;
 import com.PLGVS.course.repositories.OrderRepository;
 import com.PLGVS.course.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,9 @@ public class TestConfig implements CommandLineRunner {
     @Autowired
     private OrderRepository orderRepository;
 
+    @Autowired
+    private CategoryRepository categoryRepository;
+
     @Override
     public void run(String... args) throws Exception {
         User user1 = new User(null, "Maria Brown", "maria@gmail.com", "988888888", "123456");
@@ -31,7 +36,12 @@ public class TestConfig implements CommandLineRunner {
         Order order2 = new Order(null, Instant.parse("2019-07-21T03:42:10Z"), OrderStatus.WAITING_PAYMENT, user2);
         Order order3 = new Order(null, Instant.parse("2019-07-22T15:21:22Z"), OrderStatus.WAITING_PAYMENT, user1);
 
+        Category cat1 = new Category(null, "Electronics");
+        Category cat2 = new Category(null, "Books");
+        Category cat3 = new Category(null, "Computers");
+
         userRepository.saveAll(Arrays.asList(user1, user2));
         orderRepository.saveAll(Arrays.asList(order1, order2, order3));
+        categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3));
     }
 }
